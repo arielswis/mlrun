@@ -1,7 +1,5 @@
 @Library('pipelinex@_refactor_github') _
 
-
-
 label = "${UUID.randomUUID().toString()}"
 git_project = "mlrun"
 git_project_user = "mlrun"
@@ -22,54 +20,6 @@ podTemplate(label: "${git_project}-${label}", inheritFrom: "docker-python") {
                 mlrun_github_client.releaseCi(true) {
                     container('docker-python') {
                         stage("build ${git_project}/api in dood") {
-                            dir("${Githubc.BUILD_FOLDER}/src/github.com/${git_project_user}/${git_project}") {
-                                println(common.shellc("MLRUN_VERSION=${mlrun_github_client.tag.docker} echo test"))
-                            }
-                        }
-
-                        stage("build ${git_project}/mlrun in dood") {
-                            dir("${Githubc.BUILD_FOLDER}/src/github.com/${git_project_user}/${git_project}") {
-                                println(common.shellc("MLRUN_VERSION=${mlrun_github_client.tag.docker} echo test"))
-                            }
-                        }
-
-                        stage("build ${git_project}/jupyter in dood") {
-                            dir("${Githubc.BUILD_FOLDER}/src/github.com/${git_project_user}/${git_project}") {
-                                println(common.shellc("MLRUN_VERSION=${mlrun_github_client.tag.docker} echo test")
-                            }
-                        }
-
-                        stage("build ${git_project}/base in dood") {
-                            dir("${Githubc.BUILD_FOLDER}/src/github.com/${git_project_user}/${git_project}") {
-                                println(common.shellc("MLRUN_VERSION=${mlrun_github_client.tag.docker} echo test"))
-                            }
-                        }
-
-                        stage("build ${git_project}/base-legacy in dood") {
-                            dir("${Githubc.BUILD_FOLDER}/src/github.com/${git_project_user}/${git_project}") {
-                                println(common.shellc("MLRUN_VERSION=${mlrun_github_client.tag.docker} echo test"))
-                            }
-                        }
-
-                        stage("build ${git_project}/models in dood") {
-                            dir("${Githubc.BUILD_FOLDER}/src/github.com/${git_project_user}/${git_project}") {
-                                println(common.shellc("MLRUN_VERSION=${mlrun_github_client.tag.docker} echo test"))
-                            }
-                        }
-
-                        stage("build ${git_project}/models-legacy in dood") {
-                            dir("${Githubc.BUILD_FOLDER}/src/github.com/${git_project_user}/${git_project}") {
-                                println(common.shellc("MLRUN_VERSION=${mlrun_github_client.tag.docker} echo test"))
-                            }
-                        }
-
-                        stage("build ${git_project}/models-gpu in dood") {
-                            dir("${Githubc.BUILD_FOLDER}/src/github.com/${git_project_user}/${git_project}") {
-                                println(common.shellc("MLRUN_VERSION=${mlrun_github_client.tag.docker} echo test"))
-                            }
-                        }
-
-                        stage("build ${git_project}/models-gpu-legacy in dood") {
                             dir("${Githubc.BUILD_FOLDER}/src/github.com/${git_project_user}/${git_project}") {
                                 println(common.shellc("MLRUN_VERSION=${mlrun_github_client.tag.docker} echo test"))
                             }
@@ -98,20 +48,6 @@ podTemplate(label: "${git_project}-${label}", inheritFrom: "docker-python") {
                             // )
                         }
                     }
-
-                    // common.conditional_stage('Upload to PyPi', "${mlrun_github_client.tag.toString()}" != "unstable") {
-                    //     container('python37') {
-                    //         withCredentials([
-                    //             usernamePassword(credentialsId: "iguazio-prod-pypi-credentials",
-                    //                                 passwordVariable: 'TWINE_PASSWORD',
-                    //                                 usernameVariable: 'TWINE_USERNAME')]) {
-                    //             dir("${Githubc.BUILD_FOLDER}/src/github.com/${git_project_user}/${git_project}") {
-                    //                 println(common.shellc("pip install twine"))
-                    //                 println(common.shellc("MLRUN_VERSION=${mlrun_github_client.tag.docker} make publish-package"))
-                    //             }
-                    //         }
-                    //     }
-                    // }
                 }
             }
         }
